@@ -8,28 +8,34 @@
 # strace echo "ola" 2>&1 | grep write
 
 Saída filtrada:
+write(1, "ola\n", 4) = 4
+
 
 # Anote:
-#   Argumento 1 (file descriptor):
-#   O que está sendo escrito:
-#   Valor de retorno:
+#   Argumento 1 (file descriptor):fd 1
+#   O que está sendo escrito: "ola\n"
+#   Valor de retorno: 4
 
-fd:
-conteúdo:
-retorno:
+fd:1
+conteúdo:"ola\n"
+retorno:4
 
 
 # PARTE B — Programa C com write() direto
 
 # Cole aqui o código de syscall_direto.c que você escreveu:
 
-[código-fonte]
+[código-fonte] #include <unistd.h>
+int main() {
+    write(1, "ola\n", 4);
+    return 0;
+}
 
 
 # Cole aqui a linha write(...) da saída de strace ./syscall_direto:
 
-[saída do strace]
-
+[saída do strace] 
+ write(1, "ola\n", 4) = 4
 
 # PARTE C — Questões de síntese
 
@@ -37,11 +43,13 @@ retorno:
 #    Como um programa de usuário consegue fazer I/O sem executar
 #    instruções privilegiadas diretamente? (mínimo 2 frases)
 
-Resposta 1:
+Resposta 1: Um programa de usuário não executa diretamente instruções de I/O porque elas são privilegiadas e só podem rodar no modo kernel.
+Em vez disso, ele utiliza chamadas de sistema (syscalls), como write(), que fazem o sistema operacional executar a operação de forma segura.
 
 
 # 2. Compare write(fd, buffer, tamanho) com o "programa de canal"
 #    da apresentação: o que os dois têm em comum em termos de
-#    responsabilidades?
+#    responsabilidades? 
 
-Resposta 2:
+Resposta 2:Tanto a função write() quanto o programa de canal recebem instruções sobre o que deve ser feito, como o destino, os dados e o tamanho da operação.
+Em ambos os casos, o programa apenas solicita a ação, enquanto o sistema (kernel ou canal) é responsável por executar o acesso ao dispositivo.
