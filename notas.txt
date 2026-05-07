@@ -3,9 +3,11 @@
 # ─────────────────────────────────────────────────────
 
 # FASE 1 — Pré-processador (gcc -E)
-# Quantas linhas tem soma.i? O que o pré-processador expandiu?
+# Quantas linhas tem soma.i? O que o pré-processador expandiu?  O que o pré-processador expandiu? O pré-processador expandiu bibliotecas como stdio.h, removeu comentários e preparou o código para a compilação.
 
-Linhas em soma.i:
+
+
+Linhas em soma.i: 757
 Observação:
 
 
@@ -14,11 +16,26 @@ Observação:
 # interessantes.
 
 Trecho de soma.s:
+ .file   "soma.c"
+.option nopic
+.text
+.align  1
+.globl  soma
+.type   soma, @function
+
+soma:
+    addi    sp,sp,-32
+    sd      s0,24(sp)
+    addi    s0,sp,32
+jh
+
 
 # FASE 3 — Código objeto (gcc -c)
 # Cole a saída de: file soma.o
 
 file soma.o:
+ ELF 64-bit LSB relocatable, UCB RISC-V, version 1 (SYSV), not stripped
+
 
 # Cole a saída de: nm soma.o
 
@@ -27,13 +44,16 @@ nm soma.o:
 # Quais símbolos aparecem? O que significa o marcador "U" ao lado
 # de printf?
 
-Observação sobre nm:
+Observação sobre nm: 0000000000000000 r .LC0
+0000000000000028 T main
+                 U printf
+0000000000000000 T soma
 
 
 # FASE 4 — Ligação (gcc soma.o -o soma)
 # O que mudou após a ligação? Execute ./soma e registre a saída.
 
-Saída de ./soma:
+Saída de ./soma: 12
 
 
 # QUESTÕES DE SÍNTESE
@@ -43,9 +63,13 @@ Saída de ./soma:
 # ligador em relação a esse símbolo? 
 
 Resposta 1:
+O ligador é responsável por resolver símbolos indefinidos, como printf, procurando suas implementações nas bibliotecas do sistema e conectando essas funções ao executável final.
+
 
 
 # 2. Você gerou três arquivos intermediários: soma.i (pré-processado), soma.s (assembly),
 #    soma.o (objeto). Qual desses é o que o computador realmente executa?
 
-Resposta 2:
+Resposta 2: 
+O computador executa o arquivo final gerado após a ligação, chamado soma. Os arquivos soma.i, soma.s e soma.o são apenas arquivos intermediários do processo de compilação.
+
