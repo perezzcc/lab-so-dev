@@ -10,6 +10,7 @@
 
 Resposta:
 
+No shell moderno, o mecanismo equivalente ao JCL são os comandos do terminal e o redirecionamento de arquivos e dispositivos. O shell permite executar programas, organizar tarefas e controlar entrada e saída de dados de forma semelhante ao que o JCL fazia nos sistemas antigos.
 # ─────────────────────────────────────────────────────
 
 # ATIVIDADE 7 — Make
@@ -20,10 +21,11 @@ Resposta:
 #    que não mudou?
 
 Resposta 1:
-
+O make utiliza dependências e comparação de datas de modificação dos arquivos. Ele verifica se algum arquivo-fonte foi alterado depois do executável ou arquivo objeto. Se nada mudou, ele entende que não é necessário recompilar.
 
 # 2. O monitor unificava "supervisor, carregador e rotinas de I/O
 #    sob uma interface textual". O que o Makefile unifica no fluxo
 #    de desenvolvimento moderno?
 
 Resposta 2:
+O Makefile unifica o processo de compilação, montagem, ligação e automação de comandos do projeto. Ele organiza todas as etapas do desenvolvimento em um único fluxo automatizado.
